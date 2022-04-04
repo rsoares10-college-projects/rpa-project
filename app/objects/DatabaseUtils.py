@@ -21,6 +21,7 @@ class database:
         )
         self.query_por_estado = "insert into HISTORICO_COVID_POR_ESTADOS(DATA_REFERENCIA,STATE ,DEATHS,TOTAL_CASES, NEW_DEATHS, NEW_CASES) values('{data_referencia}', '{state}', {deaths}, {total_cases},{new_deaths},{new_cases})"
         self.query_totais     = "insert into HISTORICO_COVID_TOTAIS(DATA_REFERENCIA,DEATHS,TOTAL_CASES, NEW_DEATHS, NEW_CASES) values('{data_referencia}', {deaths}, {total_cases},{new_deaths},{new_cases})"
+        self.query_requests   = "insert into TOTAL_REQUESTS(DATA_REFERENCIA, QUANTIDADE, ENDPOINT) values('{data_referencia}', {quantidade}, '{endpoint}')"
 
     def execute_from_query(self, sql_file):
         with open(self.dir + "/" + sql_file, "r") as reads:
@@ -34,6 +35,13 @@ class database:
         else:
             insert_query = self.query_totais.format(**values)
         
+        cursor_cnxn_msql = self.cnx_mysql.cursor()
+        cursor_cnxn_msql.execute(insert_query)
+        self.cnx_mysql.commit()
+
+
+    def ingest_requests(self, values:dict):
+        insert_query = self.query_requests.format(**values)
         cursor_cnxn_msql = self.cnx_mysql.cursor()
         cursor_cnxn_msql.execute(insert_query)
         self.cnx_mysql.commit()

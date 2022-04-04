@@ -2,6 +2,9 @@ from dataclasses import fields
 import objects.DatabaseUtils as db
 import pandas as pd
 from zipfile import ZipFile
+from flask import Flask
+from flask import request
+import requests
 
 
 z = ZipFile('final.zip', 'r')
@@ -46,3 +49,18 @@ if tabela_ja_existente == 0:
     inserir_dados_mysql(df_final, data_engine)
 
 
+app = Flask(__name__)
+
+@app.route("/total/estados")
+def totalPorEstado():
+    return 'TESTE API POR ESTADO'
+
+
+@app.route("/total")
+def total():
+    #data_engine = db.database()
+    #data_engine.ingest_requests(values=values)
+    return 'TESTE API TOTAL'
+    
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
