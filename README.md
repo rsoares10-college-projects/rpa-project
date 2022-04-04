@@ -26,7 +26,7 @@ TABELA: HISTORICO_COVID_POR_ESTADOS
 SCRIPT PYTHON
 
 Objetivo: Dentro do folder ``` ./app ``` temos um arquivo final.zip, nele contem todos os registros de covid disponíveis neste link do gitHub:
-https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_daily_reports/03-31-2021.csv
+https://github.com/wcota/covid19br/blob/master/cases-brazil-cities-time_changesOnly.csv.gz
 
 
 Com este ``` scrypt.py ``` vamos descompactar todos os dados no arquivo final.zip, organizar os dados e inserir nas duas tabelas citadas acima
