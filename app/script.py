@@ -7,6 +7,7 @@ from flask import request
 import requests
 from datetime import datetime
 import json
+import smtplib, ssl
 
 
 z = ZipFile('final.zip', 'r')
@@ -95,6 +96,25 @@ def requests():
     }
     
     todos_requests = data_engine.get_requests(values=values_request)
+
+    #port = 465  # For SSL
+    #smtp_server = "smtp.gmail.com"
+    #sender_email = "sbardelatt@gmail.com"  
+    #receiver_email = "sbardelatt@gmail.com"  
+    #password = "****"
+
+    #tipos_de_ingresso = []
+
+    #message = "Subject: Report diário requests\n\n"
+    #for tipo in tipos_de_ingresso:
+    #    for k, v in tipo.items():
+    #        message += f"{k}: {v}\n"
+    #        message += "\n"
+
+    #context = ssl.create_default_context()
+    #with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+    #    server.login(sender_email, password)
+    #    server.sendmail(sender_email, receiver_email, message.encode('utf-8'))
 
     return json.dumps(todos_requests)
     
