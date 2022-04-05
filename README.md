@@ -39,7 +39,7 @@ Com este ``` scrypt.py ``` vamos descompactar todos os dados no arquivo final.zi
 
 # API FLASK
 
-- ``` /total ```   -> acessa todos os registros do banco (soma por estados do dia) 
-- ``` /total/estados ```   -> acessa todos os registros do banco por estado
-- ``` /requests ```   -> retorna quantidade de acessos dos enpoints daquele dia em questão
+- ``` localhost:5000/total ```   -> acessa todos os registros do banco (soma por estados do dia) 
+- ``` localhost:5000/total/estados ```   -> acessa todos os registros do banco por estado
+- ``` localhost:5000/requests ```   -> retorna quantidade de acessos dos enpoints daquele dia em questão
 
