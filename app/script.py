@@ -5,6 +5,8 @@ from zipfile import ZipFile
 from flask import Flask
 from flask import request
 import requests
+from datetime import datetime
+import json
 
 
 z = ZipFile('final.zip', 'r')
@@ -53,14 +55,48 @@ app = Flask(__name__)
 
 @app.route("/total/estados")
 def totalPorEstado():
-    return 'TESTE API POR ESTADO'
+    data_engine = db.database()
+    data_referencia = datetime.today().strftime('%Y-%m-%d')
+
+    values_request = {
+        "data_referencia": data_referencia,
+        "endpoint": "total/estados"
+    }
+    
+    data_engine.add_requests(values=values_request)
+    total = data_engine.get_total_estados()
+
+    return json.dumps(total, indent=4, sort_keys=True, default=str)
 
 
 @app.route("/total")
 def total():
-    #data_engine = db.database()
-    #data_engine.ingest_requests(values=values)
-    return 'TESTE API TOTAL'
+    data_engine = db.database()
+    data_referencia = datetime.today().strftime('%Y-%m-%d')
+
+    values_request = {
+        "data_referencia": data_referencia,
+        "endpoint": "total"
+    }
+    
+    data_engine.add_requests(values=values_request)
+    total = data_engine.get_total()
+    return json.dumps(total, indent=4, sort_keys=True, default=str)
+
+
+
+@app.route("/requests")
+def requests():
+    data_engine = db.database()
+    data_referencia = datetime.today().strftime('%Y-%m-%d')
+
+    values_request = {
+        "data_referencia": data_referencia
+    }
+    
+    todos_requests = data_engine.get_requests(values=values_request)
+
+    return json.dumps(todos_requests)
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
