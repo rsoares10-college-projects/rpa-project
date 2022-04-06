@@ -14,6 +14,8 @@ spec:
       labels:
         app: db-prod
     spec:
+      nodeSelector:
+        disktype: ssd
       containers:
       - name: mysql
         image: mysql
@@ -25,8 +27,6 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
-        nodeSelector:
-          disktype: ssd
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
