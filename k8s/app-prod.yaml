@@ -13,10 +13,11 @@ spec:
       labels:
         app: "app-prod"
     spec:
+      nodeSelector:
+        disktype: ssd
       containers:
         - name: "app-prod"
           image: "rpaprojectfiap/rpa_project_app"
           ports:
           - containerPort: 8080
-        nodeSelector:
-          disktype: ssd
+          
