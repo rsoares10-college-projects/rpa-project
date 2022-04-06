@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-prod
+  labels:
+    app: db-prod
+spec:
+  serviceName: mysql-headless
+  selector:
+    matchLabels:
+      app: db-prod
+  template:
+    metadata:
+      labels:
+        app: db-prod
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        env:
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "root"
+        - name: "MYSQL_DATABASE"
+          value: "covid"
+        ports:
+        - containerPort: 3306
+          name: mysql
+        nodeSelector:
+          disktype: ssd
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

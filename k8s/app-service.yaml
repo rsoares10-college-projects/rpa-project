@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app: app-prod
+  ports:
+  - name: app-service
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  type: LoadBalancer
