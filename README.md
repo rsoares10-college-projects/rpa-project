@@ -136,7 +136,8 @@ Ao final do arquivo ``` ./app/script.py ```, é possível encontrar os endpoints
 
 4. **Um usuário que deseja assinar a "newsletter" do site, conseguiria receber estas informações diariamente em seu email?**
 
-    R.: Conseguiria sim, através do nosso script o usuário receberia os dados atualizados sobre COVID 19  diariamente. (Wellington AU, acredito que aqui você vai usar o cloud watch do AWS, daí se quiser reformular a questão fique a vontade).
+    R.: Sim, apesar de não ser a melhor maneira de obter essa informação, o nosso script possibilita que o usuário obtenha os dados através do email, recomendamos que esse consumo seja feito diretamente pelo powerbi.
+
 
 <br />
 
