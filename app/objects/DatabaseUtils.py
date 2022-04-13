@@ -27,18 +27,23 @@ class database:
         self.query_get_requests_date = "SELECT ENDPOINT, QUANTIDADE FROM  TOTAL_REQUESTS WHERE DATA_REFERENCIA = '{data_referencia}';"
         self.query_get_total_estados = "SELECT * FROM  HISTORICO_COVID_POR_ESTADOS;"
 
+    #executa o arquivo database.sql para criar as tabelas iniciais
     def execute_from_query(self, sql_file):
         with open(self.dir + "/" + sql_file, "r") as reads:
             sqlScript = reads.read()
             cursor_cnxn_msql = self.cnx_mysql.cursor()
             cursor_cnxn_msql.execute(sqlScript)
 
+
+    #insere os registros conforme a atualização 
     def ingest(self, values:dict):
         insert_query = self.query_por_estado.format(**values)
         cursor_cnxn_msql = self.cnx_mysql.cursor()
         cursor_cnxn_msql.execute(insert_query)
         self.cnx_mysql.commit()
 
+
+    #caso haja o acesso em um endpoint em específico, é incrementado na tabela através da coluna "quantidade"
     def add_requests(self, values):
         get_query = self.query_get_requests_by_endpoint_date.format(**values)
         cursor_cnxn_msql = self.cnx_mysql.cursor(buffered=True)
@@ -69,6 +74,8 @@ class database:
             cursor_cnxn_msql.execute(insert_query)
             self.cnx_mysql.commit()
 
+
+    # busca o total de acessos naquele endpoint pela data
     def get_requests(self, values:dict):
         insert_query = self.query_get_requests_date.format(**values)
         cursor_cnxn_msql = self.cnx_mysql.cursor(buffered=True, dictionary=True)
@@ -77,6 +84,9 @@ class database:
         self.cnx_mysql.commit()
         return valores_select
 
+
+
+    # busca todos os registros de estados e registros totais da COVID na tabela HISTORICO_COVID_POR_ESTADOS
     def get_total_estados(self):
         insert_query = self.query_get_total_estados
         cursor_cnxn_msql = self.cnx_mysql.cursor(buffered=True, dictionary=True)
@@ -85,6 +95,8 @@ class database:
         self.cnx_mysql.commit()
         return valores_select
 
+
+    # remove todos os registros da tabela HISTORICO_COVID_POR_ESTADOS permitindo assim, a insereção de novos registros sem gerar duplicidade
     def truncate_table_estados(self):
         query = self.query_truncate_estados
         cursor_cnxn_msql = self.cnx_mysql.cursor(buffered=True, dictionary=True)

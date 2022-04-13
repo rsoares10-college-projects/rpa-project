@@ -1,3 +1,5 @@
+# Esta parte do código vai rodar inicialmente com o start do container
+
 from dataclasses import fields
 import objects.DatabaseUtils as db
 import pandas as pd
@@ -12,20 +14,24 @@ import numpy as np
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-
+# --- acessando a base de dados (mesma do Google)
 df = pd.read_csv('https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv')
 
-# tratamento de colunas
+# --- tratamento de colunas
 df.rename(columns={"newDeaths": "new_deaths", "newCases": "new_cases"}, inplace=True)
 df['data_referencia'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
 
 
-# agrupando e ordenando 
+# --- agrupando e ordenando 
 df_final = df.groupby(['data_referencia','state']).sum()[["new_deaths", "new_cases"]]
 df_final = df_final.reset_index()
 df_final = df_final.sort_values(by='data_referencia')
 
 
+
+
+
+# Caso a tabela do MYSQL já existe, o código abaixo não insere os registros novamente, pois sua estrutura já está pronta para uso.
 data_engine = db.database()
 tabela_ja_existente = 0
 
@@ -51,10 +57,15 @@ if tabela_ja_existente == 0:
 
 
 
+
+# Inicialização da API
+
+
 app = Flask(__name__)
 
 
-@app.route("/atualizar/dados")
+#rota para pegar os dados mais atualziados, limpar a tabela HISTORICO_COVID_POR_ESTADOS e então adicionar os novos registros
+@app.route("/atualizar/dados", methods=['POST'])
 def atualizar():
     data_engine = db.database()
 
@@ -77,6 +88,8 @@ def atualizar():
     return 'registros inseridos...'
 
 
+
+#rota retornar os casos e mortes de covid por estado e o total do dia
 @app.route("/total/estados")
 def totalPorEstado():
     data_engine = db.database()
@@ -93,6 +106,8 @@ def totalPorEstado():
     return json.dumps(total, indent=4, sort_keys=True, default=str)
 
 
+
+#rota envio de email com o total de requests até o momento daquele dia
 @app.route("/requests")
 def requests():
     data_engine = db.database()
