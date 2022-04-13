@@ -130,7 +130,7 @@ Ao final do arquivo ``` ./app/script.py ```, é possível encontrar os endpoints
 
 3. **Um usuário cego deseja obter as informações. Seria possível a construção de alguma opção de acessibilidade para esse tipo de usuário?**
 
-    R.: A partir da nossa aplicação, seria possível desenvolver uma maneira de apresentação auditiva para tornar acessível nosso projeto. Através de algumas pesquisas, notamos que o Power Bi não tem por padrão alguma ferramenta que contribua.
+    R.: A partir da nossa aplicação, seria possível desenvolver uma maneira de apresentação de áudio para tornar acessível nosso projeto. Através de algumas pesquisas, notamos que o Power Bi não tem por padrão alguma ferramenta que contribua.
 
 <br />
 
@@ -142,4 +142,4 @@ Ao final do arquivo ``` ./app/script.py ```, é possível encontrar os endpoints
 
 5. **Considerando que era investido cerca de 0,10 centavos (dinheiro público) para cada ligação, que eram recebidas cerca de 100.000 ligações por dia e que a pandemia começou 01/03/2020 e terminou a exatamente 2 anos depois (situação hipotética), quanto você cobraria pra implantar sua solução, considerando que vocês como empresa querem maximizar os lucros e ao mesmo tempo, tornar a proposta atrativa para o governo? Por que esse valor foi escolhido?**
 
-    R.:
+    R.: Chegamos a conclusão de uma estimativa de R$ 200.000,00 pois o mesmo apresenta uma estrutura já robusta para se enquadrar em qualquer sistema, apenas consumindo a API e inluindo o frame do Power Bi
